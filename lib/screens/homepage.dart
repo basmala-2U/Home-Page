@@ -12,7 +12,6 @@ class HomePage extends StatefulWidget {
 
 // this state holds the logic and ui for the home page
 class _HomePageState extends State<HomePage> {
-
   // used to call api functions
   final ApiService _apiService = ApiService();
 
@@ -88,7 +87,6 @@ class _HomePageState extends State<HomePage> {
       // main page content
       body: Column(
         children: [
-
           // search bar section
           Padding(
             padding: EdgeInsets.all(16),
@@ -114,7 +112,6 @@ class _HomePageState extends State<HomePage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-
                 // section title
                 Text(
                   'all featured',
@@ -147,53 +144,51 @@ class _HomePageState extends State<HomePage> {
           SizedBox(
             height: 100,
             child: isLoading
-            // show loading while data is coming
+                // show loading while data is coming
                 ? Center(child: CircularProgressIndicator())
-            // show categories when data is ready
+                // show categories when data is ready
                 : ListView.builder(
-              scrollDirection: Axis.horizontal,
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              itemCount: categories.length,
-              itemBuilder: (context, index) {
-                final category = categories[index];
-                return Padding(
-                  padding: EdgeInsets.only(right: 16),
-                  child: Column(
-                    children: [
+                    scrollDirection: Axis.horizontal,
+                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    itemCount: categories.length,
+                    itemBuilder: (context, index) {
+                      final category = categories[index];
+                      return Padding(
+                        padding: EdgeInsets.only(right: 16),
+                        child: Column(
+                          children: [
+                            // category image
+                            Container(
+                              width: 60,
+                              height: 60,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(color: Colors.grey),
+                              ),
+                              child: ClipOval(
+                                child: Image.asset(
+                                  'assets/images/photo${index + 1}.jpg',
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (_, __, ___) {
+                                    return Icon(Icons.image);
+                                  },
+                                ),
+                              ),
+                            ),
 
-                      // category image
-                      Container(
-                        width: 60,
-                        height: 60,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(color: Colors.grey),
+                            SizedBox(height: 8),
+
+                            // category name
+                            Text(
+                              category.name,
+                              style: TextStyle(fontSize: 12),
+                            ),
+                          ],
                         ),
-                        child: ClipOval(
-                          child: Image.asset(
-                            'assets/images/photo${index + 1}.jpg',
-                            fit: BoxFit.cover,
-                            errorBuilder: (_, __, ___) {
-                              return Icon(Icons.image);
-                            },
-                          ),
-                        ),
-                      ),
-
-                      SizedBox(height: 8),
-
-                      // category name
-                      Text(
-                        category.name,
-                        style: TextStyle(fontSize: 12),
-                      ),
-                    ],
+                      );
+                    },
                   ),
-                );
-              },
-            ),
           ),
-
         ],
       ),
     );
